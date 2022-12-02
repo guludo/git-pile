@@ -105,7 +105,7 @@ def git_temporary_worktree(commit, dir, prefix="git-pile-worktree"):
 
     try:
         with tempfile.TemporaryDirectory(dir=dir, prefix=prefix) as d:
-            git(f"worktree add --detach --checkout {d} {commit}", stdout=nul_f, stderr=nul_f)
+            git(f"worktree add --detach --checkout {d}/ {commit}", stdout=nul_f, stderr=nul_f)
             yield d
     finally:
         git(f"worktree remove {d}")

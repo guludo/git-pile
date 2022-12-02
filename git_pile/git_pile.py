@@ -201,7 +201,7 @@ class InitCmd(PileCommand):
 
         # checkout pile branch as a new worktree
         try:
-            git(f"worktree add --checkout {config.dir} {config.pile_branch}", stdout=nul_f, stderr=nul_f)
+            git(f"worktree add --checkout {config.dir}/ {config.pile_branch}", stdout=nul_f, stderr=nul_f)
         except:
             config.revert(oldconfig)
             fatal(f"failed to checkout worktree at {config.dir}")
@@ -356,7 +356,7 @@ class SetupCmd(PileCommand):
         if need_worktree:
             # checkout pile branch as a new worktree
             try:
-                git(f"-C {gitroot} worktree add --checkout {args.dir} {local_pile_branch}", stdout=nul_f, stderr=nul_f)
+                git(f"-C {gitroot} worktree add --checkout {args.dir}/ {local_pile_branch}", stdout=nul_f, stderr=nul_f)
             except:
                 fatal(f"failed to checkout worktree for '{local_pile_branch}' at {args.dir}")
 
@@ -1791,7 +1791,7 @@ class DestroyCmd(PileCommand):
         rm_ = run_wrapper("rm", capture=True, check=False, print_error_as_ignored=True)
 
         if config.dir and op.exists(config.dir):
-            git_(f"worktree remove --force {config.dir}")
+            git_(f"worktree remove --force {config.dir}/")
             rm_(f"-rf {config.dir}")
 
         git_("worktree prune")
